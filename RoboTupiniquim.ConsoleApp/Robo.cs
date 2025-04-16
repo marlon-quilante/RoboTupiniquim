@@ -17,7 +17,7 @@
 
         }
 
-        public void DefinirPosicaoAtual()
+        public void PosicaoAtual()
         {
             string posicaoAtual = "1 2 N";
             xAtual = Convert.ToInt32(posicaoAtual[0]);
@@ -25,16 +25,38 @@
             direcaoAtual = posicaoAtual[5];
         }
 
-        public void DefinirPosicaoFinal()
-        {
-
-        }
-
         public void Movimentar()
         {
+            string instrucaoMovimento = "DMEMM";
+
+            char[] comandoMovimento = instrucaoMovimento.ToCharArray();
+
+            for (int i = 0; i < comandoMovimento.Length; i++)
+            {
+                if (comandoMovimento[i] == 'M' && direcaoAtual == 'N')
+                {
+                    yAtual += 1;
+                    break;
+                }
+                else if (comandoMovimento[i] == 'M' && direcaoAtual == 'S')
+                {
+                    yAtual -= 1;
+                    break;
+                }
+                else if (comandoMovimento[i] == 'M' && direcaoAtual == 'L')
+                {
+                    xAtual += 1;
+                    break;
+                }
+                else if (comandoMovimento[i] == 'M' && direcaoAtual == 'O')
+                {
+                    xAtual -= 1;
+                    break;
+                }
+            }
         }
 
-        public void DefinirDirecaoAtual()
+        public void DefinirDirecao()
         {
             string instrucaoMovimento = "DMEMM";
 
@@ -45,34 +67,42 @@
                 if (direcaoAtual == 'N' && comandoMovimento[i] == 'E')
                 {
                     direcaoAtual = 'O';
+                    break;
                 }
                 else if (direcaoAtual == 'N' && comandoMovimento[i] == 'D')
                 {
                     direcaoAtual = 'L';
+                    break;
                 }
                 else if (direcaoAtual == 'S' && comandoMovimento[i] == 'E')
                 {
                     direcaoAtual = 'L';
+                    break;
                 }
                 else if (direcaoAtual == 'S' && comandoMovimento[i] == 'D')
                 {
                     direcaoAtual = 'O';
+                    break;
                 }
                 else if (direcaoAtual == 'O' && comandoMovimento[i] == 'E')
                 {
                     direcaoAtual = 'S';
+                    break;
                 }
                 else if (direcaoAtual == 'O' && comandoMovimento[i] == 'D')
                 {
                     direcaoAtual = 'N';
+                    break;
                 }
                 else if (direcaoAtual == 'L' && comandoMovimento[i] == 'E')
                 {
                     direcaoAtual = 'N';
+                    break;
                 }
                 else if (direcaoAtual == 'L' && comandoMovimento[i] == 'D')
                 {
                     direcaoAtual = 'S';
+                    break;
                 }
             }
         }
