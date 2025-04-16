@@ -14,6 +14,12 @@
              * output: posição final do robô. Ex: 1 3 N
              */
 
+            while (true)
+            {
+                Robo robo1 = new Robo();
+
+                robo1.DefinirPosicaoAtual();
+            }
 
         }
     }

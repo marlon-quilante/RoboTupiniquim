@@ -5,10 +5,12 @@
         public int xAtual = 0;
         public int yAtual = 0;
         public char direcaoAtual = new char();
+        public string[] posicaoAtual = new string[4];
 
         public int xFinal = 0;
         public int yFinal = 0;
-        public string direcaoFinal = "";
+        public char direcaoFinal = new char();
+        public string[] posicaoFinal = new string[4];
 
         public int quantidade = 2;
 
@@ -17,43 +19,16 @@
 
         }
 
-        public void PosicaoAtual()
+        public void DefinirPosicaoAtual()
         {
-            string posicaoAtual = "1 2 N";
-            xAtual = Convert.ToInt32(posicaoAtual[0]);
-            yAtual = Convert.ToInt32(posicaoAtual[2]);
-            direcaoAtual = posicaoAtual[5];
-        }
+            Console.Write("Digite a posição atual do robô: ");
+            string posicaoDigitada = Console.ReadLine();
 
-        public void Movimentar()
-        {
-            string instrucaoMovimento = "DMEMM";
+            posicaoAtual = posicaoDigitada.Split(' ');
 
-            char[] comandoMovimento = instrucaoMovimento.ToCharArray();
-
-            for (int i = 0; i < comandoMovimento.Length; i++)
-            {
-                if (comandoMovimento[i] == 'M' && direcaoAtual == 'N')
-                {
-                    yAtual += 1;
-                    break;
-                }
-                else if (comandoMovimento[i] == 'M' && direcaoAtual == 'S')
-                {
-                    yAtual -= 1;
-                    break;
-                }
-                else if (comandoMovimento[i] == 'M' && direcaoAtual == 'L')
-                {
-                    xAtual += 1;
-                    break;
-                }
-                else if (comandoMovimento[i] == 'M' && direcaoAtual == 'O')
-                {
-                    xAtual -= 1;
-                    break;
-                }
-            }
+            xAtual = int.Parse(posicaoAtual[0]);
+            yAtual = int.Parse(posicaoAtual[1]);
+            direcaoAtual = char.Parse(posicaoAtual[2]);
         }
 
         public void DefinirDirecao()
@@ -105,6 +80,42 @@
                     break;
                 }
             }
+        }
+
+        public void Movimentar()
+        {
+            string instrucaoMovimento = "DMEMM";
+
+            char[] comandoMovimento = instrucaoMovimento.ToCharArray();
+
+            for (int i = 0; i < comandoMovimento.Length; i++)
+            {
+                if (comandoMovimento[i] == 'M' && direcaoAtual == 'N')
+                {
+                    yAtual += 1;
+                    break;
+                }
+                else if (comandoMovimento[i] == 'M' && direcaoAtual == 'S')
+                {
+                    yAtual -= 1;
+                    break;
+                }
+                else if (comandoMovimento[i] == 'M' && direcaoAtual == 'L')
+                {
+                    xAtual += 1;
+                    break;
+                }
+                else if (comandoMovimento[i] == 'M' && direcaoAtual == 'O')
+                {
+                    xAtual -= 1;
+                    break;
+                }
+            }
+        }
+
+        public void DefinirPosicaoFinal()
+        {
+
         }
     }
 }
