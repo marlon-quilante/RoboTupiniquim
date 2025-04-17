@@ -19,12 +19,41 @@
                 Robo robo = new Robo();
                 Local local = new Local();
 
-                local.DefinirAreaMaxima();
-                robo.DefinirPosicaoAtual();
-                robo.DefinirPosicaoFinal(local.xMaximo, local.yMaximo);
-                robo.ApresentarPosicaoFinal();
-            }
+                Console.Clear();
+                robo.DefinirQuantidade();
 
+                for (int numeroRobo = 1; numeroRobo <= robo.quantidade; numeroRobo++)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Robô {numeroRobo}...\n");
+                    local.DefinirAreaMaxima();
+                    robo.DefinirPosicaoAtual();
+                    robo.DefinirPosicaoFinal(local.xMaximo, local.yMaximo);
+                    robo.ApresentarPosicaoFinal(numeroRobo);
+                }
+
+                if (!ContinuarExplorando())
+                {
+                    break;
+                }
+            }
+        }
+
+        static bool ContinuarExplorando()
+        {
+            Console.WriteLine("1- Continuar explorando");
+            Console.WriteLine("2- Sair\n");
+
+            string opcaoEscolhida = Console.ReadLine();
+
+            if (opcaoEscolhida == "1")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

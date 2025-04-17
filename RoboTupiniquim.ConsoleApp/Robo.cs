@@ -8,12 +8,12 @@
         public string[] posicaoAtual = new string[4];
         public char comandoAtual = new char();
         public string posicaoFinal = "";
-
-        public int quantidade = 2;
+        public int quantidade = 0;
 
         public void DefinirQuantidade()
         {
-
+            Console.Write("Escolha a quantidade de robôs que farão a exploração: ");
+            quantidade = int.Parse(Console.ReadLine());
         }
 
         public void DefinirPosicaoAtual()
@@ -86,7 +86,7 @@
 
         public void DefinirPosicaoFinal(int xMaximo, int yMaximo)
         {
-            Console.Write("\nDigite o comando de movimentação do robô: ");
+            Console.Write("Digite o comando de movimentação do robô: ");
             string instrucaoMovimento = Console.ReadLine();
 
             char[] comandoMovimento = instrucaoMovimento.ToCharArray();
@@ -102,10 +102,11 @@
             posicaoFinal = $"{xAtual} {yAtual} {direcaoAtual}";
         }
 
-        public void ApresentarPosicaoFinal()
+        public void ApresentarPosicaoFinal(int numeroRobo)
         {
             Console.WriteLine();
-            Console.WriteLine("Posição final do robô: " + posicaoFinal);
+            Console.WriteLine($"Posição final do robô {numeroRobo}: " + posicaoFinal);
+            Console.WriteLine("\nPressione ENTER para continuar...");
             Console.ReadLine();
         }
     }
