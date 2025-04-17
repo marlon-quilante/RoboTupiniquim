@@ -17,9 +17,11 @@
             while (true)
             {
                 Robo robo = new Robo();
+                Local local = new Local();
 
+                local.DefinirAreaMaxima();
                 robo.DefinirPosicaoAtual();
-                robo.DefinirPosicaoFinal();
+                robo.DefinirPosicaoFinal(local.xMaximo, local.yMaximo);
                 robo.ApresentarPosicaoFinal();
             }
 

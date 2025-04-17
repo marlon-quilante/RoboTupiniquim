@@ -64,27 +64,27 @@
             }
         }
 
-        public void Movimentar()
+        public void Movimentar(int xMaximo, int yMaximo)
         {
-            if (comandoAtual == 'M' && direcaoAtual == 'N')
+            if (comandoAtual == 'M' && direcaoAtual == 'N' && yAtual < yMaximo)
             {
                 yAtual += 1;
             }
-            else if (comandoAtual == 'M' && direcaoAtual == 'S')
+            else if (comandoAtual == 'M' && direcaoAtual == 'S' && yAtual > 0)
             {
                 yAtual -= 1;
             }
-            else if (comandoAtual == 'M' && direcaoAtual == 'L')
+            else if (comandoAtual == 'M' && direcaoAtual == 'L' && xAtual < xMaximo)
             {
                 xAtual += 1;
             }
-            else if (comandoAtual == 'M' && direcaoAtual == 'O')
+            else if (comandoAtual == 'M' && direcaoAtual == 'O' && xAtual > 0)
             {
                 xAtual -= 1;
             }
         }
 
-        public void DefinirPosicaoFinal()
+        public void DefinirPosicaoFinal(int xMaximo, int yMaximo)
         {
             Console.Write("\nDigite o comando de movimentação do robô: ");
             string instrucaoMovimento = Console.ReadLine();
@@ -94,8 +94,9 @@
             for (int i = 0; i < comandoMovimento.Length; i++)
             {
                 comandoAtual = comandoMovimento[i];
+
                 DefinirDirecao();
-                Movimentar();
+                Movimentar(xMaximo, yMaximo);
             }
 
             posicaoFinal = $"{xAtual} {yAtual} {direcaoAtual}";

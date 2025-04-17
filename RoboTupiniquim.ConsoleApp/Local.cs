@@ -2,14 +2,17 @@
 {
     internal class Local
     {
-        public int x = 5;
-        public int y = 5;
+        public int xMaximo = 0;
+        public int yMaximo = 0;
+        public string[] areaMaxima = new string[2];
 
-        public int[,] Area()
+        public void DefinirAreaMaxima()
         {
-            int[,] area = new int[x, y];
+            Console.Write("Defina a área máxima de exploração: ");
+            areaMaxima = Console.ReadLine().Split(' ');
 
-            return area;
+            xMaximo = int.Parse(areaMaxima[0]);
+            yMaximo = int.Parse(areaMaxima[1]);
         }
     }
 }
