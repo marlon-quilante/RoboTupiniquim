@@ -86,7 +86,8 @@
 
         public void DefinirPosicaoFinal()
         {
-            string instrucaoMovimento = "MMDMMDMDDM";
+            Console.Write("\nDigite o comando de movimentação do robô: ");
+            string instrucaoMovimento = Console.ReadLine();
 
             char[] comandoMovimento = instrucaoMovimento.ToCharArray();
 
@@ -103,7 +104,7 @@
         public void ApresentarPosicaoFinal()
         {
             Console.WriteLine();
-            Console.WriteLine(posicaoFinal);
+            Console.WriteLine("Posição final do robô: " + posicaoFinal);
             Console.ReadLine();
         }
     }
