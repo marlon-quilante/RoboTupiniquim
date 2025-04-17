@@ -6,11 +6,8 @@
         public int yAtual = 0;
         public char direcaoAtual = new char();
         public string[] posicaoAtual = new string[4];
-
-        public int xFinal = 0;
-        public int yFinal = 0;
-        public char direcaoFinal = new char();
-        public string[] posicaoFinal = new string[4];
+        public char comandoAtual = new char();
+        public string posicaoFinal = "";
 
         public int quantidade = 2;
 
@@ -33,89 +30,81 @@
 
         public void DefinirDirecao()
         {
-            string instrucaoMovimento = "DMEMM";
-
-            char[] comandoMovimento = instrucaoMovimento.ToCharArray();
-
-            for (int i = 0; i < comandoMovimento.Length; i++)
+            if (direcaoAtual == 'N' && comandoAtual == 'E')
             {
-                if (direcaoAtual == 'N' && comandoMovimento[i] == 'E')
-                {
-                    direcaoAtual = 'O';
-                    break;
-                }
-                else if (direcaoAtual == 'N' && comandoMovimento[i] == 'D')
-                {
-                    direcaoAtual = 'L';
-                    break;
-                }
-                else if (direcaoAtual == 'S' && comandoMovimento[i] == 'E')
-                {
-                    direcaoAtual = 'L';
-                    break;
-                }
-                else if (direcaoAtual == 'S' && comandoMovimento[i] == 'D')
-                {
-                    direcaoAtual = 'O';
-                    break;
-                }
-                else if (direcaoAtual == 'O' && comandoMovimento[i] == 'E')
-                {
-                    direcaoAtual = 'S';
-                    break;
-                }
-                else if (direcaoAtual == 'O' && comandoMovimento[i] == 'D')
-                {
-                    direcaoAtual = 'N';
-                    break;
-                }
-                else if (direcaoAtual == 'L' && comandoMovimento[i] == 'E')
-                {
-                    direcaoAtual = 'N';
-                    break;
-                }
-                else if (direcaoAtual == 'L' && comandoMovimento[i] == 'D')
-                {
-                    direcaoAtual = 'S';
-                    break;
-                }
+                direcaoAtual = 'O';
+            }
+            else if (direcaoAtual == 'N' && comandoAtual == 'D')
+            {
+                direcaoAtual = 'L';
+            }
+            else if (direcaoAtual == 'S' && comandoAtual == 'E')
+            {
+                direcaoAtual = 'L';
+            }
+            else if (direcaoAtual == 'S' && comandoAtual == 'D')
+            {
+                direcaoAtual = 'O';
+            }
+            else if (direcaoAtual == 'O' && comandoAtual == 'E')
+            {
+                direcaoAtual = 'S';
+            }
+            else if (direcaoAtual == 'O' && comandoAtual == 'D')
+            {
+                direcaoAtual = 'N';
+            }
+            else if (direcaoAtual == 'L' && comandoAtual == 'E')
+            {
+                direcaoAtual = 'N';
+            }
+            else if (direcaoAtual == 'L' && comandoAtual == 'D')
+            {
+                direcaoAtual = 'S';
             }
         }
 
         public void Movimentar()
         {
-            string instrucaoMovimento = "DMEMM";
-
-            char[] comandoMovimento = instrucaoMovimento.ToCharArray();
-
-            for (int i = 0; i < comandoMovimento.Length; i++)
+            if (comandoAtual == 'M' && direcaoAtual == 'N')
             {
-                if (comandoMovimento[i] == 'M' && direcaoAtual == 'N')
-                {
-                    yAtual += 1;
-                    break;
-                }
-                else if (comandoMovimento[i] == 'M' && direcaoAtual == 'S')
-                {
-                    yAtual -= 1;
-                    break;
-                }
-                else if (comandoMovimento[i] == 'M' && direcaoAtual == 'L')
-                {
-                    xAtual += 1;
-                    break;
-                }
-                else if (comandoMovimento[i] == 'M' && direcaoAtual == 'O')
-                {
-                    xAtual -= 1;
-                    break;
-                }
+                yAtual += 1;
+            }
+            else if (comandoAtual == 'M' && direcaoAtual == 'S')
+            {
+                yAtual -= 1;
+            }
+            else if (comandoAtual == 'M' && direcaoAtual == 'L')
+            {
+                xAtual += 1;
+            }
+            else if (comandoAtual == 'M' && direcaoAtual == 'O')
+            {
+                xAtual -= 1;
             }
         }
 
         public void DefinirPosicaoFinal()
         {
+            string instrucaoMovimento = "MMDMMDMDDM";
 
+            char[] comandoMovimento = instrucaoMovimento.ToCharArray();
+
+            for (int i = 0; i < comandoMovimento.Length; i++)
+            {
+                comandoAtual = comandoMovimento[i];
+                DefinirDirecao();
+                Movimentar();
+            }
+
+            posicaoFinal = $"{xAtual} {yAtual} {direcaoAtual}";
+        }
+
+        public void ApresentarPosicaoFinal()
+        {
+            Console.WriteLine();
+            Console.WriteLine(posicaoFinal);
+            Console.ReadLine();
         }
     }
 }

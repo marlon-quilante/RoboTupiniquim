@@ -16,9 +16,11 @@
 
             while (true)
             {
-                Robo robo1 = new Robo();
+                Robo robo = new Robo();
 
-                robo1.DefinirPosicaoAtual();
+                robo.DefinirPosicaoAtual();
+                robo.DefinirPosicaoFinal();
+                robo.ApresentarPosicaoFinal();
             }
 
         }
