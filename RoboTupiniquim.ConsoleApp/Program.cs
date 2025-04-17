@@ -4,18 +4,10 @@
     {
         static void Main(string[] args)
         {
-            /*
-             * plano cartesiano inicia em 0,0
-             * 
-             * primeiro input: tamanho do plano cartesiano. Ex: 5 5
-             * segundo input: posição atual do robô. Ex: 1 2 N
-             * terceiro input: movimentação do robô ---> E = 90º à esquerda; D = 90º à direita; M = Move
-             * 
-             * output: posição final do robô. Ex: 1 3 N
-             */
-
             while (true)
             {
+                CabecalhoInicial();
+
                 Robo robo = new Robo();
                 Local local = new Local();
 
@@ -24,12 +16,21 @@
 
                 for (int numeroRobo = 1; numeroRobo <= robo.quantidade; numeroRobo++)
                 {
+                    robo = new Robo(robo.quantidade);
+                    local = new Local();
+
+                    robo.roboAtual = numeroRobo;
                     Console.Clear();
-                    Console.WriteLine($"Robô {numeroRobo}...\n");
-                    local.DefinirAreaMaxima();
-                    robo.DefinirPosicaoAtual();
+                    local.DefinirAreaMaxima(robo);
+                    robo.DefinirPosicaoAtual(local.xMaximo, local.yMaximo);
                     robo.DefinirPosicaoFinal(local.xMaximo, local.yMaximo);
-                    robo.ApresentarPosicaoFinal(numeroRobo);
+                    robo.ApresentarPosicaoFinal(robo.roboAtual);
+
+                    if (robo.quantidade > 1 && robo.roboAtual == 1)
+                    {
+                        Console.WriteLine("\nPressione ENTER para continuar...");
+                        Console.ReadLine();
+                    }
                 }
 
                 if (!ContinuarExplorando())
@@ -41,7 +42,7 @@
 
         static bool ContinuarExplorando()
         {
-            Console.WriteLine("1- Continuar explorando");
+            Console.WriteLine("\n1- Continuar explorando");
             Console.WriteLine("2- Sair\n");
 
             string opcaoEscolhida = Console.ReadLine();
@@ -54,6 +55,16 @@
             {
                 return false;
             }
+        }
+
+        static void CabecalhoInicial()
+        {
+            Console.Clear();
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine("Bem-vindo(a) à central de controle do Robô Tupiniquim!");
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine("\nPressione ENTER para continuar...");
+            Console.ReadLine();
         }
     }
 }
