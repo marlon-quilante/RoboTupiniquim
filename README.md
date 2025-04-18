@@ -4,11 +4,15 @@
 
 ## Introdução
 
-Bem-vindo(a) à central de controle do Robô Tupiniquim. Aqui você irá definir o tamanho da
-área que deseja explorar, a posição inicial do robô e o comando de movimentação. Com base nisso,
-o programa irá calcular e apresentar a posição final do robô.
+Bem-vindo(a) à central de controle do Robô Tupiniquim. Aqui você irá definir a quantidade de
+robôs exploratórios, o tamanho da área que deseja explorar, a posição inicial do robô e o
+comando de movimentação. Com base nisso, o programa irá calcular e apresentar a posição final
+do robô.
 
 ## Funcionalidades
+
+- **Definição da quantidade de robôs:** Ao iniciar o programa, o usuário pode escolher
+a quantidade de robôs que irão explorar um determinado local.
 
 - **Definição da área de exploração:** É feita através de coordenadas x e y, sendo a 
 coordenada inicial 0,0. Para definir a coordenada máxima de x e y, deve ser escrito
