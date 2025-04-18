@@ -1,31 +1,22 @@
-﻿namespace RoboTupiniquim.ConsoleApp
+﻿namespace RoboTupiniquim.ConsoleApp;
+
+public class Local
 {
-    internal class Local
+    public int xMaximo = 0;
+    public int yMaximo = 0;
+
+    public void DefinirAreaMaxima(string area) // 5 5 
     {
-        public int xMaximo = 0;
-        public int yMaximo = 0;
-        public string[] areaMaxima = new string[2];
+        string[] areaMaxima = area.Split(' ');
+        xMaximo = int.Parse(areaMaxima[0]);
+        yMaximo = int.Parse(areaMaxima[1]);
+    }
 
-        public void DefinirAreaMaxima(Robo robo)
-        {
-            try
-            {
-                Console.Clear();
-                Console.WriteLine($"Robô {robo.roboAtual}...\n");
-                Console.Write("Defina a área máxima de exploração: ");
-                areaMaxima = Console.ReadLine().Split(' ');
+    public bool PosicaoValida(Robo robo)
+    {
+        if ((robo.posicaoX > xMaximo || robo.posicaoX < 0) || (robo.posicaoY > yMaximo || robo.posicaoY < 0))        
+            return false;
 
-                xMaximo = int.Parse(areaMaxima[0]);
-                yMaximo = int.Parse(areaMaxima[1]);
-            }
-            catch
-            {
-                Console.WriteLine("\nOcorreu um erro na definição da área de exploração! Pressione ENTER para inserir a área novamente...");
-                Console.ReadLine();
-                Console.Clear();
-                Console.WriteLine($"Robô {robo.roboAtual}...\n");
-                DefinirAreaMaxima(robo);
-            }
-        }
+        return true;
     }
 }
