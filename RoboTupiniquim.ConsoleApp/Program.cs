@@ -129,7 +129,12 @@
                 for (int coluna = 0; coluna <= local.xMaximo; coluna++)
                 {
                     if (linha == robo.y && coluna == robo.x)
-                        Console.Write("o ");
+                    {
+                        var aux = Console.ForegroundColor;
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write(robo.direcao + " ");
+                        Console.ForegroundColor = aux;
+                    }
                     else
                         Console.Write("x ");
                 }
