@@ -41,7 +41,7 @@
 
                     while (true)
                     {
-                        robo.comandoExploracao = DefinirComandoDeExploracao(robo);
+                        robo.comandoExploracao = DefinirComandoDeExploracao(robo, local);
 
                         if (ComandoDeExploracaoValido(robo))
                         {
@@ -52,7 +52,7 @@
                             ApresentarMensagem("\nComando de exploração inválido! Pressione ENTER para inserir o comando novamente...");
                     }
 
-                    ApresentarPosicaoFinal(robo);
+                    ApresentarPosicaoFinal(robo, local);
 
                     if (TemVariosRobos(robo))
                     {
@@ -118,10 +118,29 @@
             return Console.ReadLine();
         }
 
-        static string DefinirComandoDeExploracao(Robo robo)
+        static void ApresentarAreaDeExploracao(Local local, Robo robo)
         {
+            LimparTela();
             ApresentarNumeroRobo(robo);
-            Console.Write("Digite o comando de movimentação do robô: ");
+            Console.WriteLine("Área de Exploração:\n");
+
+            for (int linha = local.yMaximo; linha >= 0; linha--)
+            {
+                for (int coluna = 0; coluna <= local.xMaximo; coluna++)
+                {
+                    if (linha == robo.y && coluna == robo.x)
+                        Console.Write("o ");
+                    else
+                        Console.Write("x ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        static string DefinirComandoDeExploracao(Robo robo, Local local)
+        {
+            ApresentarAreaDeExploracao(local, robo);
+            Console.Write("\nDigite o comando de movimentação do robô: ");
             return Console.ReadLine();
         }
 
@@ -156,8 +175,9 @@
             }
         }
 
-        static void ApresentarPosicaoFinal(Robo robo)
+        static void ApresentarPosicaoFinal(Robo robo, Local local)
         {
+            ApresentarAreaDeExploracao(local, robo);
             Console.WriteLine($"\nPosição final do robô {robo.numero}: " + robo.posicaoFinal);
         }
 
