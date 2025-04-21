@@ -5,6 +5,7 @@
         public int xMaximo = 0;
         public int yMaximo = 0;
         public string areaMaxima = "";
+        public string[,] desenhoArea = new string[0,0];
 
         public bool LimiteDaAreaDefinido()
         {
@@ -22,38 +23,24 @@
             }
         }
 
-        public bool PosicaoInicialDefinida(Robo robo)
+        public void MontarAreaDeExploracao(Robo robo)
         {
-            try
+            desenhoArea = new string[xMaximo+1, yMaximo+1];
+
+            for (int linha = yMaximo; linha >= 0; linha--)
             {
-                string[] posicaoAtual = robo.posicao.Split(' ');
-
-                robo.x = int.Parse(posicaoAtual[0]);
-                robo.y = int.Parse(posicaoAtual[1]);
-                robo.direcao = char.Parse(posicaoAtual[2]);
-
-                return true;
+                for (int coluna = 0; coluna <= xMaximo; coluna++)
+                {
+                    if (linha == robo.y && coluna == robo.x)
+                    {
+                        desenhoArea[coluna, linha] = robo.direcao + " ";
+                    }
+                    else
+                    {
+                        desenhoArea[coluna, linha] = "x ";
+                    }
+                }
             }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public bool PosicaoInicialValida(Robo robo)
-        {
-            bool posicaoValida = false;
-
-            if (robo.x > xMaximo || robo.x < 0)
-                posicaoValida = false;
-            else if (robo.y > yMaximo || robo.y < 0)
-                posicaoValida = false;
-            else if (robo.direcao != 'N' && robo.direcao != 'S' && robo.direcao != 'L' && robo.direcao != 'O')
-                posicaoValida = false;
-            else
-                posicaoValida = true;
-
-            return posicaoValida;
         }
     }
 }

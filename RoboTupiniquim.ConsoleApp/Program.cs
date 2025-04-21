@@ -33,7 +33,7 @@
                     {
                         robo.posicao = DefinirPosicaoInicial(robo);
 
-                        if (local.PosicaoInicialDefinida(robo) && local.PosicaoInicialValida(robo))
+                        if (robo.PosicaoInicialDefinida() && robo.PosicaoInicialValida(local))
                             break;
                         else
                             ApresentarMensagem("\nPosição inicial do robô inválida! Pressione ENTER para inserir a posição novamente...");
@@ -43,9 +43,22 @@
                     {
                         robo.comandoExploracao = DefinirComandoDeExploracao(robo, local);
 
-                        if (ComandoDeExploracaoValido(robo))
+                        if (robo.ComandoDeExploracaoValido())
                         {
-                            robo.Explorar(local);
+                            char[] comandoMovimento = robo.comandoExploracao.ToCharArray();
+
+                            for (int i = 0; i < comandoMovimento.Length; i++)
+                            {
+                                robo.comandoAtual = comandoMovimento[i];
+
+                                robo.GirarParaDireita();
+                                robo.GirarParaEsquerda();
+                                robo.Mover(local);
+                                robo.DefinirPosicaoFinal();
+                                ApresentarAreaDeExploracao(local, robo);
+                                Thread.Sleep(1000);
+                            }
+
                             break;
                         }
                         else
@@ -54,7 +67,7 @@
 
                     ApresentarPosicaoFinal(robo, local);
 
-                    if (TemVariosRobos(robo))
+                    if (robo.TemVariosRobos())
                     {
                         Console.WriteLine("\nPressione ENTER para continuar...");
                         Console.ReadLine();
@@ -84,12 +97,6 @@
             LimparTela();
         }
 
-        static void ApresentarNumeroRobo(Robo robo)
-        {
-            LimparTela();
-            Console.WriteLine($"Robô {robo.numero}...\n");
-        }
-
         static int DefinirQuantidadeRobos()
         {
             try
@@ -102,6 +109,12 @@
                 ApresentarMensagem("\nOcorreu um erro na definição da quantidade de robôs! Pressione ENTER para inserir a quantidade novamente...");
                 return DefinirQuantidadeRobos();
             }
+        }
+
+        static void ApresentarNumeroRobo(Robo robo)
+        {
+            LimparTela();
+            Console.WriteLine($"Robô {robo.numero}...\n");
         }
 
         static string DefinirAreaDeExploracao(Robo robo)
@@ -122,6 +135,7 @@
         {
             LimparTela();
             ApresentarNumeroRobo(robo);
+            local.MontarAreaDeExploracao(robo);
             Console.WriteLine("Área de Exploração:\n");
 
             for (int linha = local.yMaximo; linha >= 0; linha--)
@@ -132,11 +146,11 @@
                     {
                         var aux = Console.ForegroundColor;
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write(robo.direcao + " ");
+                        Console.Write(local.desenhoArea[coluna, linha]);
                         Console.ForegroundColor = aux;
                     }
                     else
-                        Console.Write("x ");
+                        Console.Write(local.desenhoArea[coluna, linha]);
                 }
                 Console.WriteLine();
             }
@@ -147,37 +161,6 @@
             ApresentarAreaDeExploracao(local, robo);
             Console.Write("\nDigite o comando de movimentação do robô: ");
             return Console.ReadLine();
-        }
-
-        static bool ComandoDeExploracaoValido(Robo robo)
-        {
-            char[] comandoMovimento = robo.comandoExploracao.ToCharArray();
-            bool comandoValido = false;
-
-            for (int i = 0; i < comandoMovimento.Length; i++)
-            {
-                if (comandoMovimento[i] != 'E' && comandoMovimento[i] != 'D' && comandoMovimento[i] != 'M')
-                {
-                    comandoValido = false;
-                    break;
-                }
-                else
-                    comandoValido = true;
-            }
-
-            return comandoValido;
-        }
-
-        static bool TemVariosRobos(Robo robo)
-        {
-            if (robo.quantidade > 1 && robo.numero == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
 
         static void ApresentarPosicaoFinal(Robo robo, Local local)

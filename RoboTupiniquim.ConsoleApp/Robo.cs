@@ -12,6 +12,71 @@
         public int quantidade = 0;
         public int numero = 0;
 
+        public bool PosicaoInicialDefinida()
+        {
+            try
+            {
+                string[] posicaoAtual = posicao.Split(' ');
+
+                x = int.Parse(posicaoAtual[0]);
+                y = int.Parse(posicaoAtual[1]);
+                direcao = char.Parse(posicaoAtual[2]);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool PosicaoInicialValida(Local local)
+        {
+            bool posicaoValida = false;
+
+            if (x > local.xMaximo || x < 0)
+                posicaoValida = false;
+            else if (y > local.yMaximo || y < 0)
+                posicaoValida = false;
+            else if (direcao != 'N' && direcao != 'S' && direcao != 'L' && direcao != 'O')
+                posicaoValida = false;
+            else
+                posicaoValida = true;
+
+            return posicaoValida;
+        }
+
+        public bool ComandoDeExploracaoValido()
+        {
+            char[] comandoMovimento = comandoExploracao.ToCharArray();
+            bool comandoValido = false;
+
+            for (int i = 0; i < comandoMovimento.Length; i++)
+            {
+                if (comandoMovimento[i] != 'E' && comandoMovimento[i] != 'D' && comandoMovimento[i] != 'M')
+                {
+                    comandoValido = false;
+                    break;
+                }
+                else
+                    comandoValido = true;
+            }
+
+            return comandoValido;
+        }
+
+        public bool TemVariosRobos()
+        {
+            if (quantidade > 1 && numero == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void GirarParaEsquerda()
         {
             if (comandoAtual == 'E')
@@ -54,19 +119,8 @@
                 x--;
         }
 
-        public void Explorar(Local local)
+        public void DefinirPosicaoFinal()
         {
-            char[] comandoMovimento = comandoExploracao.ToCharArray();
-
-            for (int i = 0; i < comandoMovimento.Length; i++)
-            {
-                comandoAtual = comandoMovimento[i];
-
-                GirarParaDireita();
-                GirarParaEsquerda();
-                Mover(local);
-            }
-
             posicaoFinal = $"{x} {y} {direcao}";
         }
     }
